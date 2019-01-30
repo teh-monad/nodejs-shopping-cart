@@ -1,42 +1,24 @@
-[![Build Status](https://travis-ci.org/brenohq/nodejs-shopping-cart.svg?branch=master)](https://travis-ci.org/brenohq/nodejs-shopping-cart)
+# ADDED 
+- products uploading;
+- roles managing;
 
-# NerdStore - Carrinho de Compras - NodeJS/Express
-
-# Live Demo on Heroku:
-[nodejs-shopping-cart.herokuapp.com](https://nodejs-shopping-cart.herokuapp.com/)
-
-### Run Locally on Your Machine
-You need Node, NPM and MongoDB properly installed.
-
-Clone this repository
+### Install
 ``` shell
-    git clone https://github.com/brenohq/nodejs-shopping-cart.git
-```
-Setup the environment variables replacing <MONGODB-PORT> with your mongodb port, usually is 27017.
-``` shell
-    export MONGO_DB_URI=mongodb://localhost:<MONGODB-PORT>/shopping
-```
-Install dependencies
-``` shell
+    git clone https://github.com/teh-monad/nodejs-shopping-cart.git
+    export MONGO_DB_URI=mongodb://localhost:27017/cart_mongo
     npm install
-```
-
-With your mongod service running, this will populate shopping database
-``` shell
     node seed/product-seeder.js 
 ```
-This will start dev server at http://localhost:3000 with Nodemon.
-``` shell
-    npm run dev
-```
 
-### Tests
-``` shell
-    npm test
+### Run
+#### register admin and add permissions manually
 ```
-
-### Technologies
-###### Back-end
-NodeJS, Express, MongoDB, Mongoose. 
-###### Fron-end
-Handlebars and Bootstrap.
+$ npm run dev
+```
+[http://localhost:3000/user/signup][1]
+```
+$ mongo
+> use cart_mongo
+> db.users.update({name: "admin"}, {$set :{state: "admin"}})
+```
+[1]: http://localhost:3000/user/signup

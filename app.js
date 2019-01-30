@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var hbs = require("handlebars");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
@@ -21,8 +22,21 @@ mongoose.connect(process.env.MONGO_DB_URI);
 require('./config/passport');
 
 // view engine setup
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', '.hbs');
+hbs.registerHelper('ifvalue', function (conditional, options) {
+  if (options.hash.value === conditional) {
+    return options.fn(this)
+  } else {
+    return options.inverse(this);
+  }
+});
+app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+
+app.use('/public', express.static(path.join(__dirname, '/public'), {
+  maxAge: 0,
+  dotfiles: 'ignore',
+  etag: false
+}));
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

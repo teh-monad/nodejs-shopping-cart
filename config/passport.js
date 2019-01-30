@@ -17,8 +17,8 @@ passport.use('local.signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function(req, email, password, done) {
-  req.checkBody('email', 'Email inválido!').notEmpty().isEmail();
-  req.checkBody('password', 'Senha inválida!').notEmpty().isLength({
+  req.checkBody('email', 'Email invalid!').notEmpty().isEmail();
+  req.checkBody('password', 'Password inválid!').notEmpty().isLength({
     min: 4
   });
 
@@ -38,7 +38,7 @@ passport.use('local.signup', new LocalStrategy({
     }
     if (user) {
       return done(null, false, {
-        message: 'Este email já está sendo usado.'
+        message: 'This email is using.'
       });
     }
     var newUser = new User();
@@ -61,8 +61,8 @@ passport.use('local.signin', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function(req, email, password, done) {
-  req.checkBody('email', 'Email inválido!').notEmpty().isEmail();
-  req.checkBody('password', 'Senha inválida!').notEmpty();
+  req.checkBody('email', 'Email invalid!').notEmpty().isEmail();
+  req.checkBody('password', 'Password invalid!').notEmpty();
   var errors = req.validationErrors();
   if (errors) {
     var messages = [];
@@ -79,12 +79,12 @@ passport.use('local.signin', new LocalStrategy({
     }
     if (!user) {
       return done(null, false, {
-        message: 'Usuário não encontrado!.'
+        message: 'User not found!.'
       });
     }
     if (!user.validPassword(password)) {
       return done(null, false, {
-        message: 'Senha errada!'
+        message: 'Wrong password!'
       });
     }
     return done(null, user);
